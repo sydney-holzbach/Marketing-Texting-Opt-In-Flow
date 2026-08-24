@@ -7,7 +7,7 @@ import { PreferencesProvider } from './state/PreferencesContext.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <PreferencesProvider>
         <App />
       </PreferencesProvider>

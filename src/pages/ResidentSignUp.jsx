@@ -12,8 +12,7 @@ import recaptchaLogo from '../assets/recaptcha-logo.svg'
 export default function ResidentSignUp() {
   const { preferences } = usePreferences()
   const [form, setForm] = useState({ accountNumber: '', email: '', ssn: '', phone: '' })
-  const [informational, setInformational] = useState(false)
-  const [promotional, setPromotional] = useState(false)
+  const [consent, setConsent] = useState(false)
   const [captcha, setCaptcha] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
@@ -27,9 +26,9 @@ export default function ResidentSignUp() {
           <img src={rmResidentLogo} alt="rmResident Portal" className="h-10" />
           <h1 className="text-xl text-[#313233]">You're signed up</h1>
           <p className="text-sm text-[#747474]">
-            {informational && 'You will receive informational texts about lease info, maintenance, billing & community events. '}
-            {promotional && 'You will receive promotional texts about property specials & promotions.'}
-            {!informational && !promotional && 'No texting consent was selected — you can update this anytime in your account.'}
+            {consent
+              ? 'You will receive automated texts regarding community news, urgent notifications, events and offers.'
+              : 'No texting consent was selected — you can update this anytime in your account.'}
           </p>
           <Link to="/" className="text-sm text-[#1a64bc] underline">
             Back to prototype home
@@ -103,23 +102,12 @@ export default function ResidentSignUp() {
                 <label className="flex gap-2 items-start w-full cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={informational}
-                    onChange={(e) => setInformational(e.target.checked)}
+                    checked={consent}
+                    onChange={(e) => setConsent(e.target.checked)}
                     className="mt-0.5 size-5 shrink-0 rounded-sm border-2 border-[#dbe1e5] accent-[#1a64bc]"
                   />
                   <span className="flex-1 text-sm text-[#616466] leading-5">
-                    I agree to receive automated text messages regarding lease info, maintenance, billing & community events
-                  </span>
-                </label>
-                <label className="flex gap-2 items-start w-full cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={promotional}
-                    onChange={(e) => setPromotional(e.target.checked)}
-                    className="mt-0.5 size-5 shrink-0 rounded-sm border-2 border-[#dbe1e5] accent-[#1a64bc]"
-                  />
-                  <span className="flex-1 text-sm text-[#616466] leading-5">
-                    I agree to receive automated text messages regarding property specials & promotions
+                    I agree to receive automated texts regarding community news, urgent notifications, events and offers
                   </span>
                 </label>
               </div>
@@ -128,10 +116,11 @@ export default function ResidentSignUp() {
             <div className="flex flex-col gap-5 items-center w-full">
               {preferences.showInformationalDisclaimer && (
                 <p className="text-xs text-[#747474] leading-[18px]">
-                  By checking the checkbox(s) and providing your phone number, you agree to receive automated text
-                  messages from {preferences.companyName}. Reply STOP to opt-out or HELP for more information at any
-                  time. Message and data rates may apply. Message frequency will vary. Consent to receive text
-                  messages is not a condition of purchase or of any service. For more information, please read our{' '}
+                  By checking the checkbox and providing your phone number, you agree to receive automated text
+                  messages from {preferences.companyName} regarding all the information indicated above. Reply STOP
+                  to opt-out or HELP for more information at any time. Message and data rates may apply. Message
+                  frequency will vary. Consent to receive text messages is not a condition of purchase or of any
+                  service. For more information, please read our{' '}
                   <a href={preferences.privacyPolicyUrl} target="_blank" rel="noreferrer" className="underline">
                     privacy policy
                   </a>{' '}

@@ -25,6 +25,7 @@ function RadioRow({ label, active, onSelect }) {
 export default function AdminTextingPreferences() {
   const { preferences, updatePreferences } = usePreferences()
   const [showDisclaimer, setShowDisclaimer] = useState(false)
+  const [showInfoTooltip, setShowInfoTooltip] = useState(false)
 
   return (
     <EnterpriseShell title="System Preferences: Phone Broadcast/Texting - Texting">
@@ -56,9 +57,20 @@ export default function AdminTextingPreferences() {
               <img src={iconCheckAction} alt="" className={`size-5 ${preferences.showInformationalDisclaimer ? '' : 'opacity-30 grayscale'}`} />
             </button>
             <span className="text-sm text-[#666]">Show texting opt-in consent disclaimer</span>
-            <button onClick={() => setShowDisclaimer(true)} aria-label="View texting consent disclaimer">
+            <button onClick={() => setShowInfoTooltip((v) => !v)} aria-label="More info">
               <img src={iconInfo} alt="" className="size-5" />
             </button>
+            {showInfoTooltip && (
+              <>
+                <div className="fixed inset-0 z-40" onClick={() => setShowInfoTooltip(false)} />
+                <div className="absolute left-0 top-full mt-1 z-50 w-[480px] bg-white border border-[#cedbe7] rounded shadow-[0_3px_3px_rgba(0,0,0,0.1)] p-4">
+                  <p className="text-sm text-[#13314c] leading-5">
+                    When unchecked, phone numbers that are added will not be opted in for texting. Manual
+                    opt-in/opt-out will be required.
+                  </p>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="flex flex-col gap-4 pl-7">

@@ -15,6 +15,13 @@ const LINKS = [
       { to: '/templates/maintenance-repairs', label: 'Maintenance & Repairs', desc: 'Template list for maintenance texts.' },
     ],
   },
+  {
+    group: 'Bulk texting',
+    items: [
+      { to: '/bulk/informational', label: 'Informational Bulk Flow', desc: 'Send a bulk informational text campaign.' },
+      { to: '/bulk/promotional', label: 'Promotional Bulk Flow', desc: 'Send a bulk promotional text campaign.' },
+    ],
+  },
 ]
 
 export default function Home() {
@@ -24,8 +31,8 @@ export default function Home() {
         <div>
           <h1 className="text-2xl text-[#13314c] font-semibold">Texting: Marketing Opt-In — Prototype</h1>
           <p className="text-sm text-[#616466] mt-1">
-            A connected walkthrough of the opt-in checkbox flow, admin controls, and text templates. Start with the
-            two "Opt-in flow" screens — they're wired together live.
+            A connected walkthrough of the opt-in checkbox flow, admin controls, text templates, and bulk texting.
+            Start with the two "Opt-in flow" screens — they're wired together live.
           </p>
         </div>
 

@@ -18,11 +18,11 @@ export default function DisclaimerModal({ onClose }) {
             The following texting disclaimer will show in applicable areas where a phone number may be entered:
           </p>
           <p>
-            By checking the checkbox(s) and providing your phone number, you agree to receive automated
-            informational and/or promotional text messages from {preferences.companyName}, as applicable
-            based on the checkbox(s) selected above. Reply STOP to opt-out or HELP for more information at
-            any time. Message and data rates may apply. Message frequency will vary. Consent to receive text
-            messages is not a condition of purchase or of any service. For more information, please read our{' '}
+            By checking the checkbox and providing your phone number, you agree to receive automated text
+            messages from {preferences.companyName} regarding all the information indicated above. Reply STOP
+            to opt-out or HELP for more information at any time. Message and data rates may apply. Message
+            frequency will vary. Consent to receive text messages is not a condition of purchase or of any
+            service. For more information, please read our{' '}
             <a href={preferences.privacyPolicyUrl} target="_blank" rel="noreferrer" className="text-[#008dd5] underline">
               privacy policy
             </a>{' '}

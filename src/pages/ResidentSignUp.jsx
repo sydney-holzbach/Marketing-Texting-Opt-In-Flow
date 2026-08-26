@@ -98,39 +98,35 @@ export default function ResidentSignUp() {
               </div>
             </div>
 
-            {(preferences.showInformationalDisclaimer || preferences.showPromotionalDisclaimer) && (
+            {preferences.showInformationalDisclaimer && (
               <div className="flex flex-col gap-2 items-start w-full">
-                {preferences.showInformationalDisclaimer && (
-                  <label className="flex gap-2 items-start w-full cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={informational}
-                      onChange={(e) => setInformational(e.target.checked)}
-                      className="mt-0.5 size-5 shrink-0 rounded-sm border-2 border-[#dbe1e5] accent-[#1a64bc]"
-                    />
-                    <span className="flex-1 text-sm text-[#616466] leading-5">
-                      I agree to receive automated text messages regarding lease info, maintenance, billing & community events
-                    </span>
-                  </label>
-                )}
-                {preferences.showPromotionalDisclaimer && (
-                  <label className="flex gap-2 items-start w-full cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={promotional}
-                      onChange={(e) => setPromotional(e.target.checked)}
-                      className="mt-0.5 size-5 shrink-0 rounded-sm border-2 border-[#dbe1e5] accent-[#1a64bc]"
-                    />
-                    <span className="flex-1 text-sm text-[#616466] leading-5">
-                      I agree to receive automated text messages regarding property specials & promotions
-                    </span>
-                  </label>
-                )}
+                <label className="flex gap-2 items-start w-full cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={informational}
+                    onChange={(e) => setInformational(e.target.checked)}
+                    className="mt-0.5 size-5 shrink-0 rounded-sm border-2 border-[#dbe1e5] accent-[#1a64bc]"
+                  />
+                  <span className="flex-1 text-sm text-[#616466] leading-5">
+                    I agree to receive automated text messages regarding lease info, maintenance, billing & community events
+                  </span>
+                </label>
+                <label className="flex gap-2 items-start w-full cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={promotional}
+                    onChange={(e) => setPromotional(e.target.checked)}
+                    className="mt-0.5 size-5 shrink-0 rounded-sm border-2 border-[#dbe1e5] accent-[#1a64bc]"
+                  />
+                  <span className="flex-1 text-sm text-[#616466] leading-5">
+                    I agree to receive automated text messages regarding property specials & promotions
+                  </span>
+                </label>
               </div>
             )}
 
             <div className="flex flex-col gap-5 items-center w-full">
-              {(preferences.showInformationalDisclaimer || preferences.showPromotionalDisclaimer) && (
+              {preferences.showInformationalDisclaimer && (
                 <p className="text-xs text-[#747474] leading-[18px]">
                   By checking the checkbox(s) and providing your phone number, you agree to receive automated text
                   messages from {preferences.companyName}. Reply STOP to opt-out or HELP for more information at any

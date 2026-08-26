@@ -54,17 +54,7 @@ export default function AdminTextingPreferences() {
             <button onClick={() => updatePreferences({ showInformationalDisclaimer: !preferences.showInformationalDisclaimer })}>
               <img src={iconCheckAction} alt="" className={`size-5 ${preferences.showInformationalDisclaimer ? '' : 'opacity-30 grayscale'}`} />
             </button>
-            <span className="text-sm text-[#666]">Show informational texting opt-in consent disclaimer</span>
-            <button onClick={() => setShowDisclaimer(true)} aria-label="View texting consent disclaimer">
-              <img src={iconInfo} alt="" className="size-5" />
-            </button>
-          </div>
-
-          <div className="relative flex items-center gap-2">
-            <button onClick={() => updatePreferences({ showPromotionalDisclaimer: !preferences.showPromotionalDisclaimer })}>
-              <img src={iconCheckAction} alt="" className={`size-5 ${preferences.showPromotionalDisclaimer ? '' : 'opacity-30 grayscale'}`} />
-            </button>
-            <span className="text-sm text-[#666]">Show promotional texting opt-in consent disclaimer</span>
+            <span className="text-sm text-[#666]">Show texting opt-in consent disclaimer</span>
             <button onClick={() => setShowDisclaimer(true)} aria-label="View texting consent disclaimer">
               <img src={iconInfo} alt="" className="size-5" />
             </button>
@@ -104,11 +94,11 @@ export default function AdminTextingPreferences() {
         </div>
 
         <p className="text-xs text-[#616466] max-w-[646px]">
-          Try it: toggle a disclaimer off above, then go to{' '}
+          Try it: toggle the disclaimer off above, then go to{' '}
           <Link to="/signup" className="text-[#008dd5] underline">
             the resident sign-up page
           </Link>{' '}
-          — that consent checkbox disappears from the form entirely. "View Joint Texting Consent Disclaimer" always
+          — the consent checkboxes disappear from the form entirely. "View Joint Texting Consent Disclaimer" always
           shows the combined legal text residents agree to.
         </p>
       </div>

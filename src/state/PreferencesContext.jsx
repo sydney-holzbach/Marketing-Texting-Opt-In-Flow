@@ -5,7 +5,6 @@ const PreferencesContext = createContext(null)
 const defaultPreferences = {
   broadcastNumberRule: 'any',
   showInformationalDisclaimer: true,
-  showPromotionalDisclaimer: true,
   companyName: 'Mgmt Company Name (Premiere Management Company)',
   privacyPolicyUrl: 'https://lcs-bateam.sitemanager.rentmanager.com/PrivacyPolicy.aspx',
   termsOfServiceUrl: 'https://lcs-bateam.sitemanager.rentmanager.com/TermsofService.aspx',

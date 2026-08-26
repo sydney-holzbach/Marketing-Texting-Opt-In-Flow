@@ -5,6 +5,7 @@ import { usePreferences } from '../state/PreferencesContext.jsx'
 import DisclaimerModal from '../components/DisclaimerModal.jsx'
 import iconInfo from '../assets/icon-info.svg'
 import iconCheckAction from '../assets/icon-check-action.svg'
+import chevronDown from '../assets/chevron-down.svg'
 
 function RadioRow({ label, active, onSelect }) {
   return (
@@ -63,11 +64,14 @@ export default function AdminTextingPreferences() {
           <div className="flex flex-col gap-4 pl-7">
             <div className="flex flex-col gap-1">
               <label className="text-sm text-[#666]">Company Name</label>
-              <input
-                value={preferences.companyName}
-                onChange={(e) => updatePreferences({ companyName: e.target.value })}
-                className="h-9 rounded border border-[#cedbe7] bg-[#f5f8fa] px-2 text-sm text-[#13314c]"
-              />
+              <div className="relative">
+                <input
+                  value={preferences.companyName}
+                  onChange={(e) => updatePreferences({ companyName: e.target.value })}
+                  className="h-9 w-full rounded border border-[#cedbe7] bg-white pl-2 pr-8 text-sm text-[#13314c]"
+                />
+                <img src={chevronDown} alt="" className="size-5 absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
               <span className="text-sm text-[#666]">Note: Company name should match your registered company brand.</span>
             </div>
             <div className="flex flex-col gap-1">

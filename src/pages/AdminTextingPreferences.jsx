@@ -91,6 +91,10 @@ export default function AdminTextingPreferences() {
               />
             </div>
           </div>
+
+          <button onClick={() => setShowDisclaimer(true)} className="text-sm text-[#008dd5] text-left hover:underline">
+            View Texting Consent Disclaimer
+          </button>
         </div>
 
         <p className="text-xs text-[#616466] max-w-[646px]">
@@ -98,8 +102,8 @@ export default function AdminTextingPreferences() {
           <Link to="/signup" className="text-[#008dd5] underline">
             the resident sign-up page
           </Link>{' '}
-          — the consent checkboxes disappear from the form entirely. The info icon above always shows the combined
-          legal text residents agree to.
+          — the consent checkboxes disappear from the form entirely. "View Texting Consent Disclaimer" always shows
+          the combined legal text residents agree to.
         </p>
       </div>
 

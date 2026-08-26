@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import EnterpriseShell from '../components/shell/EnterpriseShell.jsx'
 import { usePreferences } from '../state/PreferencesContext.jsx'
 import DisclaimerModal from '../components/DisclaimerModal.jsx'
-import ConsentTooltip from '../components/ConsentTooltip.jsx'
 import iconInfo from '../assets/icon-info.svg'
 import iconCheckAction from '../assets/icon-check-action.svg'
 
@@ -25,7 +24,6 @@ function RadioRow({ label, active, onSelect }) {
 export default function AdminTextingPreferences() {
   const { preferences, updatePreferences } = usePreferences()
   const [showDisclaimer, setShowDisclaimer] = useState(false)
-  const [activeTooltip, setActiveTooltip] = useState(null)
 
   return (
     <EnterpriseShell title="System Preferences: Phone Broadcast/Texting - Texting">
@@ -57,15 +55,8 @@ export default function AdminTextingPreferences() {
               <img src={iconCheckAction} alt="" className={`size-5 ${preferences.showInformationalDisclaimer ? '' : 'opacity-30 grayscale'}`} />
             </button>
             <span className="text-sm text-[#666]">Show informational texting opt-in consent disclaimer</span>
-            <button
-              onMouseEnter={() => setActiveTooltip('informational')}
-              onMouseLeave={() => setActiveTooltip(null)}
-              className="relative"
-            >
-              <img src={iconInfo} alt="More info" className="size-5" />
-              {activeTooltip === 'informational' && (
-                <ConsentTooltip variant="informational" className="absolute left-6 top-0 z-40" />
-              )}
+            <button onClick={() => setShowDisclaimer(true)} aria-label="View texting consent disclaimer">
+              <img src={iconInfo} alt="" className="size-5" />
             </button>
           </div>
 
@@ -74,15 +65,8 @@ export default function AdminTextingPreferences() {
               <img src={iconCheckAction} alt="" className={`size-5 ${preferences.showPromotionalDisclaimer ? '' : 'opacity-30 grayscale'}`} />
             </button>
             <span className="text-sm text-[#666]">Show promotional texting opt-in consent disclaimer</span>
-            <button
-              onMouseEnter={() => setActiveTooltip('promotional')}
-              onMouseLeave={() => setActiveTooltip(null)}
-              className="relative"
-            >
-              <img src={iconInfo} alt="More info" className="size-5" />
-              {activeTooltip === 'promotional' && (
-                <ConsentTooltip variant="promotional" className="absolute left-6 top-0 z-40" />
-              )}
+            <button onClick={() => setShowDisclaimer(true)} aria-label="View texting consent disclaimer">
+              <img src={iconInfo} alt="" className="size-5" />
             </button>
           </div>
 

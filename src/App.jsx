@@ -3,6 +3,7 @@ import Home from './pages/Home.jsx'
 import ResidentSignUp from './pages/ResidentSignUp.jsx'
 import AdminTextingPreferences from './pages/AdminTextingPreferences.jsx'
 import TemplateListPage from './pages/templates/TemplateListPage.jsx'
+import TenantProfile from './pages/TenantProfile.jsx'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Route path="/signup" element={<ResidentSignUp />} />
       <Route path="/admin/texting" element={<AdminTextingPreferences />} />
       <Route path="/templates/:folderSlug" element={<TemplateListPage />} />
+      <Route path="/tenants/charlie-apegian" element={<TenantProfile />} />
     </Routes>
   )
 }

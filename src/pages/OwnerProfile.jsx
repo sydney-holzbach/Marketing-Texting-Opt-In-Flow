@@ -235,14 +235,48 @@ function formatPhone(digits) {
   return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`
 }
 
+function formatHistoryDate(d) {
+  const mm = String(d.getMonth() + 1).padStart(2, '0')
+  const dd = String(d.getDate()).padStart(2, '0')
+  const yy = String(d.getFullYear()).slice(-2)
+  return `${mm}/${dd}/${yy}`
+}
+
+function formatHistoryTime(d) {
+  let hours = d.getHours()
+  const minutes = String(d.getMinutes()).padStart(2, '0')
+  const period = hours >= 12 ? 'PM' : 'AM'
+  hours = hours % 12 || 12
+  return `${hours}:${minutes} ${period}`
+}
+
 export default function OwnerProfile() {
   const navigate = useNavigate()
   const [optInPhone, setOptInPhone] = useState(null)
   const [toastVisible, setToastVisible] = useState(false)
+  const [pendingOptIn, setPendingOptIn] = useState(null)
+  const [historyRows, setHistoryRows] = useState(HISTORY_ROWS)
 
   function handleSendText() {
+    setPendingOptIn({ phone: optInPhone, sentAt: new Date() })
     setOptInPhone(null)
     setToastVisible(true)
+  }
+
+  function handleToastDismiss() {
+    setToastVisible(false)
+    if (pendingOptIn) {
+      const { phone, sentAt } = pendingOptIn
+      setHistoryRows((rows) => [
+        {
+          date: formatHistoryDate(sentAt),
+          type: 'System',
+          note: `Texting opt-in message sent to ${phone} at ${formatHistoryTime(sentAt)}`,
+        },
+        ...rows,
+      ])
+      setPendingOptIn(null)
+    }
   }
 
   return (
@@ -512,7 +546,7 @@ export default function OwnerProfile() {
                 { label: 'Type', width: 'w-[10%]' },
                 { label: 'Note', width: 'w-[80%]' },
               ]}
-              rows={HISTORY_ROWS}
+              rows={historyRows}
               renderRow={(row, i) => (
                 <tr key={i} className={i % 2 ? 'bg-[#f5f8fa]' : 'bg-white'}>
                   <td className="px-3 py-2 text-[#13314c] truncate">{row.date}</td>
@@ -537,7 +571,7 @@ export default function OwnerProfile() {
         <SendOptInTextModal phoneNumber={optInPhone} onClose={() => setOptInPhone(null)} onSend={handleSendText} />
       )}
       {toastVisible && (
-        <Toast message="Message successfully sent." onDismiss={() => setToastVisible(false)} />
+        <Toast message="Message successfully sent." onDismiss={handleToastDismiss} />
       )}
     </div>
   )

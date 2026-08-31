@@ -496,7 +496,7 @@ export default function OwnerProfile() {
             </div>
           </div>
 
-          <div className="bg-white border border-[#cedbe7] rounded overflow-hidden flex flex-col">
+          <div className="bg-white border border-[#cedbe7] rounded overflow-hidden flex flex-col shrink-0">
             <TileHeader
               title="History / Notes"
               borderColorClass="border-[#f58220]"

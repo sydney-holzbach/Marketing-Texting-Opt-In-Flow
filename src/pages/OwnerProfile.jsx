@@ -213,10 +213,15 @@ const MANAGEMENT_COMPANY_ROWS = [
 const UDF_ROWS = [{ name: 'Permission to Send Texts', value: 'Yes' }]
 
 const HISTORY_ROWS = [
-  { date: '07/31/24', type: 'Email', note: 'An inspection has been completed: Buckeye Hall - Q [HTML Email]' },
-  { date: '07/24/24', type: 'Visit', note: 'Tim stopped by the office today' },
-  { date: '05/24/24', type: 'Call', note: 'Called Tim to follow up on planned upgrades. Left voicemail' },
-  { date: '05/01/24', type: 'System', note: 'Owner created' },
+  {
+    date: '01/22/26',
+    type: 'System',
+    note: '1112 Clarkson, Inc. - Owner Bill Attachments.pdf emailed to [tmwyjfbte@hldrive.com]: January 2026 Owner Bill Attachments',
+  },
+  { date: '01/22/26', type: 'Email', note: 'Grandin Partners January 2026 Owner Bill Attachments [HTML Email]' },
+  { date: '11/15/23', type: 'Email', note: 'An inspection has been completed: Buckeye Hall - Q [HTML Email]' },
+  { date: '11/15/23', type: 'Email', note: 'An inspection has been completed: Buckeye Hall - Q [HTML Email]' },
+  { date: '02/27/22', type: 'System', note: 'Owner created' },
 ]
 
 const PHONE_ROWS = [

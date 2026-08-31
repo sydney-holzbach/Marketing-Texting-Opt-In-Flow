@@ -1,6 +1,8 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppHeader from '../components/shell/AppHeader.jsx'
 import Checkbox from '../components/ui/Checkbox.jsx'
+import BulkActionsMenu from '../components/tenants/BulkActionsMenu.jsx'
 import iconPrint from '../assets/icon-print.svg'
 import iconAutorenew from '../assets/icon-autorenew.svg'
 import iconHelp from '../assets/icon-help.svg'
@@ -75,6 +77,7 @@ const TENANT_ROWS = [
 
 export default function TenantsRegister() {
   const navigate = useNavigate()
+  const [bulkActionsOpen, setBulkActionsOpen] = useState(false)
 
   return (
     <div className="flex flex-col h-screen w-full">
@@ -90,9 +93,15 @@ export default function TenantsRegister() {
 
       <div className="flex-1 min-w-0 overflow-y-auto bg-[#f2f2f2] p-4 flex flex-col gap-3">
         <div className="flex items-end gap-3 flex-wrap">
-          <button className="bg-[#008dd5] text-white text-sm h-9 px-3 rounded flex items-center gap-1 shrink-0">
-            Bulk Actions <span className="text-xs">&#9662;</span>
-          </button>
+          <div className="relative shrink-0">
+            <button
+              onClick={() => setBulkActionsOpen((v) => !v)}
+              className="bg-[#008dd5] text-white text-sm h-9 px-3 rounded flex items-center gap-1"
+            >
+              Bulk Actions <span className="text-xs">&#9662;</span>
+            </button>
+            {bulkActionsOpen && <BulkActionsMenu onClose={() => setBulkActionsOpen(false)} />}
+          </div>
 
           <div className="flex flex-col gap-1">
             <span className="text-sm text-[#616466]">Search</span>

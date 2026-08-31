@@ -4,6 +4,7 @@ export const COMMAND_INDEX = [
   { label: 'Maintenance & Repairs', to: '/templates/maintenance-repairs' },
   { label: 'System Preferences: Texting', to: '/admin/texting' },
   { label: 'Charlie Apegian', to: '/tenants/charlie-apegian' },
+  { label: 'Grandin Partners', to: '/owners/grandin-partners' },
   { label: 'Resident Portal Sign Up', to: '/signup' },
   { label: 'Prototype Home', to: '/' },
 ]

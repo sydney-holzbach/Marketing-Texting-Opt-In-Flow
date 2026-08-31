@@ -454,7 +454,7 @@ export default function OwnerProfile() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 items-start">
+          <div className="grid grid-cols-2 gap-4 items-stretch">
             <div className="bg-white border border-[#cedbe7] rounded overflow-hidden flex flex-col">
               <TileHeader title="Management Company" borderColorClass="border-[#008dd5]" />
               <RegisterTable

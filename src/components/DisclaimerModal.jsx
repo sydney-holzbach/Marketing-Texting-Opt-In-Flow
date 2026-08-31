@@ -21,8 +21,7 @@ export default function DisclaimerModal({ onClose }) {
             By checking the checkbox and providing your phone number, you agree to receive automated text
             messages from {preferences.companyName} regarding community news, urgent notifications and events.
             Reply STOP to opt-out or HELP for more information at any time. Message and data rates may apply. Message
-            frequency will vary. Consent to receive text messages is not a condition of purchase or of any
-            service. For more information, please read our{' '}
+            frequency will vary. For more information, please read our{' '}
             <a href={preferences.privacyPolicyUrl} target="_blank" rel="noreferrer" className="text-[#008dd5] underline">
               privacy policy
             </a>{' '}

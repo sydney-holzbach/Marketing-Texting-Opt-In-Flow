@@ -1,5 +1,7 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppHeader from '../components/shell/AppHeader.jsx'
+import ViewContactsOverlay from '../components/tenant/ViewContactsOverlay.jsx'
 import iconInfo from '../assets/icon-info.svg'
 import iconHelp from '../assets/icon-help.svg'
 import iconSearch from '../assets/icon-search.svg'
@@ -75,13 +77,19 @@ function CloseIcon({ className }) {
   )
 }
 
-function TileHeader({ title, borderColorClass, actions }) {
+function TileHeader({ title, borderColorClass, actions, onExpand }) {
   return (
     <div className={`flex items-center justify-between px-3 h-9 border-b-2 ${borderColorClass} shrink-0`}>
       <p className="text-sm font-semibold text-[#13314c]">{title}</p>
       <div className="flex items-center gap-4">
         {actions}
-        <OpenInNewIcon className="size-5 text-[#008dd5]" />
+        {onExpand ? (
+          <button onClick={onExpand} aria-label={`Expand ${title}`}>
+            <OpenInNewIcon className="size-5 text-[#008dd5]" />
+          </button>
+        ) : (
+          <OpenInNewIcon className="size-5 text-[#008dd5]" />
+        )}
       </div>
     </div>
   )
@@ -156,6 +164,7 @@ function RegisterTable({ columns, rows, renderRow }) {
 
 export default function TenantProfile() {
   const navigate = useNavigate()
+  const [contactsOverlayOpen, setContactsOverlayOpen] = useState(false)
 
   return (
     <div className="flex flex-col h-screen w-full">
@@ -288,6 +297,7 @@ export default function TenantProfile() {
                 title="Contacts"
                 borderColorClass="border-[#008dd5]"
                 actions={<button className="text-sm text-[#008dd5]">Add Contact</button>}
+                onExpand={() => setContactsOverlayOpen(true)}
               />
               <div className="p-3 flex flex-col gap-3">
                 <div className="flex items-center justify-between">
@@ -424,6 +434,8 @@ export default function TenantProfile() {
           <MailIcon className="size-5 text-white/80" />
         </div>
       </div>
+
+      {contactsOverlayOpen && <ViewContactsOverlay onClose={() => setContactsOverlayOpen(false)} />}
     </div>
   )
 }

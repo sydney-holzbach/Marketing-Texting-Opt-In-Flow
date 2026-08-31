@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import AppHeader from '../components/shell/AppHeader.jsx'
 import Checkbox from '../components/ui/Checkbox.jsx'
 import BulkActionsMenu from '../components/tenants/BulkActionsMenu.jsx'
+import SendTextModal from '../components/tenants/SendTextModal.jsx'
 import iconPrint from '../assets/icon-print.svg'
 import iconAutorenew from '../assets/icon-autorenew.svg'
 import iconHelp from '../assets/icon-help.svg'
@@ -78,6 +79,7 @@ const TENANT_ROWS = [
 export default function TenantsRegister() {
   const navigate = useNavigate()
   const [bulkActionsOpen, setBulkActionsOpen] = useState(false)
+  const [sendTextOpen, setSendTextOpen] = useState(false)
 
   return (
     <div className="flex flex-col h-screen w-full">
@@ -100,7 +102,12 @@ export default function TenantsRegister() {
             >
               Bulk Actions <span className="text-xs">&#9662;</span>
             </button>
-            {bulkActionsOpen && <BulkActionsMenu onClose={() => setBulkActionsOpen(false)} />}
+            {bulkActionsOpen && (
+              <BulkActionsMenu
+                onClose={() => setBulkActionsOpen(false)}
+                onSendText={() => setSendTextOpen(true)}
+              />
+            )}
           </div>
 
           <div className="flex flex-col gap-1">
@@ -219,6 +226,8 @@ export default function TenantsRegister() {
         </div>
         <p className="text-xs text-[#8a8f98] text-right">{TENANT_ROWS.length} of 112 Tenants</p>
       </div>
+
+      {sendTextOpen && <SendTextModal onClose={() => setSendTextOpen(false)} />}
     </div>
   )
 }

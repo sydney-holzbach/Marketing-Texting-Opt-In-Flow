@@ -45,14 +45,14 @@ const GROUPS = [
       { label: 'Write Letters' },
       { label: 'Send Email' },
       { label: 'Publish Signable Documents' },
-      { label: 'Send Text' },
+      { label: 'Send Text', action: 'send-text' },
       { label: 'Add to Phone Broadcasts' },
       { label: 'Send Surveys' },
     ],
   },
 ]
 
-export default function BulkActionsMenu({ onClose }) {
+export default function BulkActionsMenu({ onClose, onSendText }) {
   return (
     <>
       <div className="fixed inset-0 z-40" onClick={onClose} />
@@ -75,7 +75,10 @@ export default function BulkActionsMenu({ onClose }) {
             {group.items.map((item) => (
               <button
                 key={item.label}
-                onClick={onClose}
+                onClick={() => {
+                  if (item.action === 'send-text') onSendText?.()
+                  onClose()
+                }}
                 className="w-full flex items-center justify-between py-1.5 text-left text-sm text-[#1a64bc] hover:underline"
               >
                 {item.label}

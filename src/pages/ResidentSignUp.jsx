@@ -117,8 +117,9 @@ export default function ResidentSignUp() {
               {preferences.showInformationalDisclaimer && (
                 <p className="text-xs text-[#747474] leading-[18px]">
                   By checking the checkbox and providing your phone number, you agree to receive automated text
-                  messages from {preferences.companyName} regarding all the information indicated above. Reply STOP
-                  to opt-out or HELP for more information at any time. Message and data rates may apply. Message
+                  messages from {preferences.companyName} regarding community news, urgent notifications and
+                  events. Reply STOP to opt-out or HELP for more information at any time. Message and data rates may
+                  apply. Message
                   frequency will vary. Consent to receive text messages is not a condition of purchase or of any
                   service. For more information, please read our{' '}
                   <a href={preferences.privacyPolicyUrl} target="_blank" rel="noreferrer" className="underline">

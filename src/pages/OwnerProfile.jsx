@@ -90,6 +90,15 @@ function TextOptOutIcon({ className }) {
   )
 }
 
+function TextOptInIcon({ className }) {
+  return (
+    <svg viewBox="0 0 20.667 18.667" className={className} fill="currentColor">
+      <path d="M19 2C19.9167 2 20.667 2.75033 20.667 3.66699V13.667C20.6668 14.5835 19.9166 15.333 19 15.333H7.33301L4 18.667V10.4619L5.0459 11.5L5.66699 10.876V14.6416L6.6416 13.667H19V3.66699H12.8428L14.502 2H19ZM9.83301 9.5H8.16699V8.36426L8.69629 7.83301H9.83301V9.5ZM13.167 9.5H11.5V7.83301H13.167V9.5ZM16.5 9.5H14.833V7.83301H16.5V9.5ZM9.21875 2L7.67285 3.66699H5.66699V5.83008L5.0459 6.5L4 5.46973V3.66699C4 2.75033 4.75033 2 5.66699 2H9.21875Z" />
+      <path d="M4.88172 10.2987L0 5.41699L1.22043 4.19656L4.88172 7.85785L12.7396 0L13.96 1.22043L4.88172 10.2987Z" />
+    </svg>
+  )
+}
+
 function BookmarkIcon({ className }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -256,6 +265,7 @@ export default function OwnerProfile() {
   const [toastVisible, setToastVisible] = useState(false)
   const [pendingOptIn, setPendingOptIn] = useState(null)
   const [historyRows, setHistoryRows] = useState(HISTORY_ROWS)
+  const [cellOptedIn, setCellOptedIn] = useState(false)
 
   function handleSendText() {
     setPendingOptIn({ phone: optInPhone, sentAt: new Date() })
@@ -267,7 +277,14 @@ export default function OwnerProfile() {
     setToastVisible(false)
     if (pendingOptIn) {
       const { phone, sentAt } = pendingOptIn
+      // Simulate the resident replying START a few minutes after the opt-in text went out.
+      const optedInAt = new Date(sentAt.getTime() + 4 * 60 * 1000)
       setHistoryRows((rows) => [
+        {
+          date: formatHistoryDate(optedInAt),
+          type: 'System',
+          note: `${phone} opted in to text messaging at ${formatHistoryTime(optedInAt)}`,
+        },
         {
           date: formatHistoryDate(sentAt),
           type: 'System',
@@ -275,6 +292,7 @@ export default function OwnerProfile() {
         },
         ...rows,
       ])
+      setCellOptedIn(true)
       setPendingOptIn(null)
     }
   }
@@ -464,12 +482,18 @@ export default function OwnerProfile() {
                       <td className="px-3 py-2 text-[#13314c]">{row.type}</td>
                       <td className="px-3 py-2 text-center">
                         {row.default && (
-                          <button
-                            onClick={() => setOptInPhone(formatPhone(row.number))}
-                            aria-label={`Send opt-in text to ${row.type}`}
-                          >
-                            <TextOptOutIcon className="size-5 text-[#d64545] inline-block" />
-                          </button>
+                          cellOptedIn ? (
+                            <span title="Opted in to text messaging" className="inline-block">
+                              <TextOptInIcon className="size-5 text-[#6eb744] inline-block" />
+                            </span>
+                          ) : (
+                            <button
+                              onClick={() => setOptInPhone(formatPhone(row.number))}
+                              aria-label={`Send opt-in text to ${row.type}`}
+                            >
+                              <TextOptOutIcon className="size-5 text-[#d64545] inline-block" />
+                            </button>
+                          )
                         )}
                       </td>
                       <td className="px-3 py-2">

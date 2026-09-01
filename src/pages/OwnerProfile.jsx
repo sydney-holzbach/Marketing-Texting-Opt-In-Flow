@@ -99,6 +99,26 @@ function TextOptInIcon({ className }) {
   )
 }
 
+function CheckIcon({ className }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" />
+    </svg>
+  )
+}
+
+function PrimaryCheckbox({ checked }) {
+  return (
+    <span
+      className={`inline-flex items-center justify-center size-5 rounded-sm shrink-0 ${
+        checked ? 'bg-[#f58220]' : 'bg-white border-2 border-[#b3b3b3]'
+      }`}
+    >
+      {checked && <CheckIcon className="size-3.5 text-white" />}
+    </span>
+  )
+}
+
 function BookmarkIcon({ className }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -462,40 +482,43 @@ export default function OwnerProfile() {
             </div>
 
             <div className="bg-white border border-[#cedbe7] rounded overflow-hidden flex flex-col">
-              <TileHeader title="Phone Numbers" borderColorClass="border-[#008dd5]" />
+              <TileHeader title="Phone Numbers" borderColorClass="border-[#a8d48f]" />
               <table className="w-full text-sm table-fixed">
                 <thead>
                   <tr className="bg-white border-b border-[#cedbe7]">
-                    <th className="px-3 py-2 text-center font-semibold text-[#13314c] w-[16%]">Default</th>
+                    <th className="px-3 py-2 w-[12%]" />
+                    <th className="px-3 py-2 text-center font-semibold text-[#13314c] w-[14%]">Primary</th>
                     <th className="px-3 py-2 text-left font-semibold text-[#13314c] w-[16%]">Type</th>
-                    <th className="px-3 py-2 text-center font-semibold text-[#13314c] w-[20%]">Receive Texts?</th>
-                    <th className="px-3 py-2 text-left font-semibold text-[#13314c] w-[30%]">Phone Number</th>
-                    <th className="px-3 py-2 text-left font-semibold text-[#13314c] w-[18%]">Extension</th>
+                    <th className="px-3 py-2 text-left font-semibold text-[#13314c] w-[36%]">Phone Number</th>
+                    <th className="px-3 py-2 text-left font-semibold text-[#13314c] w-[22%]">Extension</th>
                   </tr>
                 </thead>
                 <tbody>
                   {PHONE_ROWS.map((row, i) => (
                     <tr key={row.type} className={i % 2 ? 'bg-[#f5f8fa]' : 'bg-white'}>
-                      <td className="px-3 py-2 text-center">
-                        <input type="checkbox" checked={row.default} readOnly className="size-4 accent-[#1a64bc]" />
-                      </td>
-                      <td className="px-3 py-2 text-[#13314c]">{row.type}</td>
-                      <td className="px-3 py-2 text-center">
+                      <td className="px-3 py-2">
                         {row.default && (
-                          cellOptedIn ? (
-                            <span title="Opted in to text messaging" className="inline-block">
-                              <TextOptInIcon className="size-5 text-[#6eb744] inline-block" />
-                            </span>
-                          ) : (
-                            <button
-                              onClick={() => setOptInPhone(formatPhone(row.number))}
-                              aria-label={`Send opt-in text to ${row.type}`}
-                            >
-                              <TextOptOutIcon className="size-5 text-[#d64545] inline-block" />
-                            </button>
-                          )
+                          <span className="flex items-center gap-1.5">
+                            <PhoneIcon className="size-4 text-[#008dd5] shrink-0" />
+                            {cellOptedIn ? (
+                              <span title="Opted in to text messaging" className="inline-block">
+                                <TextOptInIcon className="size-4 text-[#6eb744] inline-block" />
+                              </span>
+                            ) : (
+                              <button
+                                onClick={() => setOptInPhone(formatPhone(row.number))}
+                                aria-label={`Send opt-in text to ${row.type}`}
+                              >
+                                <TextOptOutIcon className="size-4 text-[#d64545] inline-block" />
+                              </button>
+                            )}
+                          </span>
                         )}
                       </td>
+                      <td className="px-3 py-2 text-center">
+                        <PrimaryCheckbox checked={row.default} />
+                      </td>
+                      <td className="px-3 py-2 text-[#13314c]">{row.type}</td>
                       <td className="px-3 py-2">
                         <input
                           defaultValue={row.number}

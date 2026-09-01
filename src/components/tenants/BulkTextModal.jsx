@@ -146,22 +146,20 @@ export default function BulkTextModal({ recipients, templateName, onClose, onNex
                           onChange={() => toggleRow(r.name)}
                         />
                       </td>
-                      <td className={`px-3 py-2 ${r.texting ? 'text-[#13314c]' : 'text-[#b3b3b3]'}`}>
+                      <td className={`px-3 py-2 ${r.texting ? 'text-[#13314c]' : 'text-[#b3b3b3]'}`}>{r.name}</td>
+                      <td className="px-3 py-2">
                         <span className="flex items-center gap-2">
                           {!r.texting && <TextOptOutIcon className="size-4 text-[#d64545] shrink-0" />}
-                          {r.name}
+                          <input
+                            defaultValue={r.phone}
+                            disabled={!r.texting}
+                            className={`w-full h-8 rounded border px-2 text-sm outline-none ${
+                              r.texting
+                                ? 'border-[#cedbe7] bg-[#f5f8fa] text-[#13314c]'
+                                : 'border-[#ebf1f5] bg-[#f5f5f5] text-[#b3b3b3]'
+                            }`}
+                          />
                         </span>
-                      </td>
-                      <td className="px-3 py-2">
-                        <input
-                          defaultValue={r.phone}
-                          disabled={!r.texting}
-                          className={`w-full h-8 rounded border px-2 text-sm outline-none ${
-                            r.texting
-                              ? 'border-[#cedbe7] bg-[#f5f8fa] text-[#13314c]'
-                              : 'border-[#ebf1f5] bg-[#f5f5f5] text-[#b3b3b3]'
-                          }`}
-                        />
                       </td>
                       <td className={`px-3 py-2 ${r.texting ? 'text-[#13314c]' : 'text-[#b3b3b3]'}`}>Tenant</td>
                     </tr>

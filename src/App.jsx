@@ -6,6 +6,7 @@ import TemplateListPage from './pages/templates/TemplateListPage.jsx'
 import TenantProfile from './pages/TenantProfile.jsx'
 import TenantsRegister from './pages/TenantsRegister.jsx'
 import OwnerProfile from './pages/OwnerProfile.jsx'
+import VendorProfile from './pages/VendorProfile.jsx'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Route path="/tenants" element={<TenantsRegister />} />
       <Route path="/tenants/charlie-apegian" element={<TenantProfile />} />
       <Route path="/owners/grandin-partners" element={<OwnerProfile />} />
+      <Route path="/vendors/aaa-plumbing" element={<VendorProfile />} />
     </Routes>
   )
 }

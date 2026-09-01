@@ -6,6 +6,7 @@ export const COMMAND_INDEX = [
   { label: 'Tenants', to: '/tenants' },
   { label: 'Charlie Apegian', to: '/tenants/charlie-apegian' },
   { label: 'Grandin Partners', to: '/owners/grandin-partners' },
+  { label: 'AAA Plumbing', to: '/vendors/aaa-plumbing' },
   { label: 'Resident Portal Sign Up', to: '/signup' },
   { label: 'Prototype Home', to: '/' },
 ]

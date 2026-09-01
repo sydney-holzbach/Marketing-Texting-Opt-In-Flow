@@ -5,6 +5,7 @@ import Checkbox from '../components/ui/Checkbox.jsx'
 import BulkActionsMenu from '../components/tenants/BulkActionsMenu.jsx'
 import SendTextModal from '../components/tenants/SendTextModal.jsx'
 import BulkSelectionBar from '../components/tenants/BulkSelectionBar.jsx'
+import BulkTextModal from '../components/tenants/BulkTextModal.jsx'
 import Toast from '../components/ui/Toast.jsx'
 import iconPrint from '../assets/icon-print.svg'
 import iconAutorenew from '../assets/icon-autorenew.svg'
@@ -96,6 +97,7 @@ export default function TenantsRegister() {
   const [pendingTemplate, setPendingTemplate] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
   const [sentCount, setSentCount] = useState(0)
+  const [bulkTextOpen, setBulkTextOpen] = useState(false)
 
   function handleContinue(template) {
     setPendingTemplate(template)
@@ -111,10 +113,11 @@ export default function TenantsRegister() {
     setSelectedNames((prev) => (prev.length === TENANT_ROWS.length ? [] : TENANT_ROWS.map((r) => r.name)))
   }
 
-  function handleBulkSendText() {
-    setSentCount(selectedNames.length)
+  function handleBulkTextNext(count) {
+    setSentCount(count)
     setToastVisible(true)
     setSelectedNames([])
+    setBulkTextOpen(false)
   }
 
   return (
@@ -291,7 +294,7 @@ export default function TenantsRegister() {
         {selectedNames.length > 0 && (
           <BulkSelectionBar
             count={selectedNames.length}
-            onSendText={handleBulkSendText}
+            onSendText={() => setBulkTextOpen(true)}
             onClear={() => setSelectedNames([])}
           />
         )}
@@ -299,6 +302,18 @@ export default function TenantsRegister() {
 
       {sendTextOpen && (
         <SendTextModal onClose={() => setSendTextOpen(false)} onContinue={handleContinue} />
+      )}
+      {bulkTextOpen && (
+        <BulkTextModal
+          recipients={TENANT_ROWS.filter((r) => selectedNames.includes(r.name)).map((r) => ({
+            name: r.name,
+            phone: r.phone,
+            texting: r.texting,
+          }))}
+          templateName={pendingTemplate}
+          onClose={() => setBulkTextOpen(false)}
+          onNext={handleBulkTextNext}
+        />
       )}
       {toastVisible && (
         <Toast

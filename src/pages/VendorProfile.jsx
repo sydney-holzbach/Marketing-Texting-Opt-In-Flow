@@ -83,6 +83,21 @@ function TextOptInIcon({ className }) {
   )
 }
 
+function ChatBubbleIcon({ className }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className={className}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinejoin="round"
+    >
+      <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v11a1 1 0 01-1 1H9l-4 4V5z" />
+    </svg>
+  )
+}
+
 function CheckIcon({ className }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -455,7 +470,7 @@ export default function VendorProfile() {
                   <div className="flex flex-col items-end gap-1.5 text-sm text-[#13314c] shrink-0">
                     <span className="flex items-center gap-2">
                       <PhoneIcon className="size-4 text-[#008dd5]" />
-                      <TextOptInIcon className="size-4 text-[#008dd5]" />
+                      <ChatBubbleIcon className="size-4 text-[#008dd5]" />
                       555-555-5555
                     </span>
                     <span className="flex items-center gap-2">

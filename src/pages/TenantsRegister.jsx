@@ -4,6 +4,8 @@ import AppHeader from '../components/shell/AppHeader.jsx'
 import Checkbox from '../components/ui/Checkbox.jsx'
 import BulkActionsMenu from '../components/tenants/BulkActionsMenu.jsx'
 import SendTextModal from '../components/tenants/SendTextModal.jsx'
+import BulkSelectionBar from '../components/tenants/BulkSelectionBar.jsx'
+import Toast from '../components/ui/Toast.jsx'
 import iconPrint from '../assets/icon-print.svg'
 import iconAutorenew from '../assets/icon-autorenew.svg'
 import iconHelp from '../assets/icon-help.svg'
@@ -54,6 +56,15 @@ function ChatBubbleIcon({ className }) {
   )
 }
 
+function ChatBubbleOffIcon({ className }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" strokeLinecap="round">
+      <path d="M4 5a1 1 0 011-1h14a1 1 0 011 1v11a1 1 0 01-1 1H9l-4 4V5z" />
+      <path d="M3 3l18 18" />
+    </svg>
+  )
+}
+
 const TENANT_ROWS = [
   { name: 'Charlie Apegian', bar: '#f58220', unit: '18', phone: '(847) 123-4567', texting: false, leaseStart: '01/01/2026', leaseEnd: '12/31/2026', status: 'Current', to: '/tenants/charlie-apegian' },
   { name: 'Kiley Donahue', unit: '5', phone: '(167) 345-6789', texting: true, leaseStart: '01/01/2026', leaseEnd: '12/31/2026', status: 'Current' },
@@ -80,6 +91,31 @@ export default function TenantsRegister() {
   const navigate = useNavigate()
   const [bulkActionsOpen, setBulkActionsOpen] = useState(false)
   const [sendTextOpen, setSendTextOpen] = useState(false)
+  const [bulkSelectMode, setBulkSelectMode] = useState(false)
+  const [selectedNames, setSelectedNames] = useState([])
+  const [pendingTemplate, setPendingTemplate] = useState('')
+  const [toastVisible, setToastVisible] = useState(false)
+  const [sentCount, setSentCount] = useState(0)
+
+  function handleContinue(template) {
+    setPendingTemplate(template)
+    setSendTextOpen(false)
+    setBulkSelectMode(true)
+  }
+
+  function toggleRow(name) {
+    setSelectedNames((prev) => (prev.includes(name) ? prev.filter((n) => n !== name) : [...prev, name]))
+  }
+
+  function toggleAll() {
+    setSelectedNames((prev) => (prev.length === TENANT_ROWS.length ? [] : TENANT_ROWS.map((r) => r.name)))
+  }
+
+  function handleBulkSendText() {
+    setSentCount(selectedNames.length)
+    setToastVisible(true)
+    setSelectedNames([])
+  }
 
   return (
     <div className="flex flex-col h-screen w-full">
@@ -156,7 +192,20 @@ export default function TenantsRegister() {
           <table className="w-full table-fixed text-sm">
             <thead>
               <tr className="bg-[#737373] text-white text-left font-medium text-xs tracking-[1.134px]">
-                <th className="w-[1.5%] px-0 py-2 rounded-tl-sm" />
+                {bulkSelectMode && (
+                  <th className="w-[3%] px-3 py-2 rounded-tl-sm">
+                    <input
+                      type="checkbox"
+                      checked={selectedNames.length === TENANT_ROWS.length}
+                      ref={(el) => {
+                        if (el) el.indeterminate = selectedNames.length > 0 && selectedNames.length < TENANT_ROWS.length
+                      }}
+                      onChange={toggleAll}
+                      className="size-4 accent-[#1a64bc]"
+                    />
+                  </th>
+                )}
+                <th className={`w-[1.5%] px-0 py-2 ${bulkSelectMode ? '' : 'rounded-tl-sm'}`} />
                 <th className="w-[16%] px-3 py-2">Name</th>
                 <th className="w-[16%] px-3 py-2">Property</th>
                 <th className="w-[7%] px-3 py-2">Unit</th>
@@ -179,6 +228,16 @@ export default function TenantsRegister() {
                     onClick={() => clickable && navigate(row.to)}
                     className={`border-t border-[#e5e4e7] ${clickable ? 'cursor-pointer hover:bg-[#f5f8fa]' : ''}`}
                   >
+                    {bulkSelectMode && (
+                      <td className="px-3 py-2" onClick={(e) => e.stopPropagation()}>
+                        <input
+                          type="checkbox"
+                          checked={selectedNames.includes(row.name)}
+                          onChange={() => toggleRow(row.name)}
+                          className="size-4 accent-[#1a64bc]"
+                        />
+                      </td>
+                    )}
                     <td className="p-0">
                       {row.bar && <span className="block h-9 w-1.5" style={{ backgroundColor: row.bar }} />}
                     </td>
@@ -196,7 +255,12 @@ export default function TenantsRegister() {
                     <td className="px-3 py-2 text-[#13314c]">{row.unit}</td>
                     <td className="px-3 py-2 text-[#13314c]">
                       <span className="flex items-center gap-1.5">
-                        {row.texting && <ChatBubbleIcon className="size-4 text-[#008dd5] shrink-0" />}
+                        {row.phone &&
+                          (row.texting ? (
+                            <ChatBubbleIcon className="size-4 text-[#008dd5] shrink-0" />
+                          ) : (
+                            <ChatBubbleOffIcon className="size-4 text-[#d64545] shrink-0" />
+                          ))}
                         {row.phone}
                       </span>
                     </td>
@@ -225,9 +289,27 @@ export default function TenantsRegister() {
           </table>
         </div>
         <p className="text-xs text-[#8a8f98] text-right">{TENANT_ROWS.length} of 112 Tenants</p>
+
+        {selectedNames.length > 0 && (
+          <BulkSelectionBar
+            count={selectedNames.length}
+            onSendText={handleBulkSendText}
+            onClear={() => setSelectedNames([])}
+          />
+        )}
       </div>
 
-      {sendTextOpen && <SendTextModal onClose={() => setSendTextOpen(false)} />}
+      {sendTextOpen && (
+        <SendTextModal onClose={() => setSendTextOpen(false)} onContinue={handleContinue} />
+      )}
+      {toastVisible && (
+        <Toast
+          message={`Text sent to ${sentCount} ${sentCount === 1 ? 'tenant' : 'tenants'}${
+            pendingTemplate ? ` using "${pendingTemplate}"` : ''
+          }.`}
+          onDismiss={() => setToastVisible(false)}
+        />
+      )}
     </div>
   )
 }

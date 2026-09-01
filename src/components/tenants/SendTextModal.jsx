@@ -24,7 +24,7 @@ function FolderIcon({ className, open }) {
 
 const FOLDER_SLUGS = ['renewal-retention', 'maintenance-repairs']
 
-export default function SendTextModal({ onClose }) {
+export default function SendTextModal({ onClose, onContinue }) {
   const [pickerOpen, setPickerOpen] = useState(false)
   const [expandedFolders, setExpandedFolders] = useState({
     'renewal-retention': false,
@@ -109,7 +109,10 @@ export default function SendTextModal({ onClose }) {
         </div>
 
         <div className="flex justify-end gap-4 px-4 py-3 bg-[#f5f8fa] border-t border-[#cedbe7] rounded-b mt-auto">
-          <button onClick={onClose} className="bg-[#008dd5] text-white text-sm h-9 px-3 rounded hover:bg-[#0077b6]">
+          <button
+            onClick={() => onContinue?.(selectedTemplate)}
+            className="bg-[#008dd5] text-white text-sm h-9 px-3 rounded hover:bg-[#0077b6]"
+          >
             Continue
           </button>
           <button onClick={onClose} className="h-9 px-3 rounded border border-[#008dd5] text-[#008dd5] text-sm">

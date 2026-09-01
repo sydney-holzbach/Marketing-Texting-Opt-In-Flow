@@ -455,7 +455,7 @@ export default function VendorProfile() {
                   <div className="flex flex-col items-end gap-1.5 text-sm text-[#13314c] shrink-0">
                     <span className="flex items-center gap-2">
                       <PhoneIcon className="size-4 text-[#008dd5]" />
-                      <TextOptInIcon className="size-4 text-[#6eb744]" />
+                      <TextOptInIcon className="size-4 text-[#008dd5]" />
                       555-555-5555
                     </span>
                     <span className="flex items-center gap-2">

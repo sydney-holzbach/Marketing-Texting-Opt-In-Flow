@@ -246,7 +246,7 @@ export default function VendorProfile() {
   const [toastVisible, setToastVisible] = useState(false)
   const [pendingOptIn, setPendingOptIn] = useState(null)
   const [historyRows, setHistoryRows] = useState(HISTORY_ROWS)
-  const [cellOptedIn, setCellOptedIn] = useState(false)
+  const [cellOptedIn, setCellOptedIn] = useState(true)
 
   function handleSendText() {
     setPendingOptIn({ phone: optInPhone, sentAt: new Date() })

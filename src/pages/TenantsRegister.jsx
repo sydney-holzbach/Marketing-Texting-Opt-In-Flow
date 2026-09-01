@@ -255,12 +255,10 @@ export default function TenantsRegister() {
                     <td className="px-3 py-2 text-[#13314c]">{row.unit}</td>
                     <td className="px-3 py-2 text-[#13314c]">
                       <span className="flex items-center gap-1.5">
-                        {row.phone &&
-                          (row.texting ? (
-                            <ChatBubbleIcon className="size-4 text-[#008dd5] shrink-0" />
-                          ) : (
-                            <ChatBubbleOffIcon className="size-4 text-[#d64545] shrink-0" />
-                          ))}
+                        {row.phone && row.texting && <ChatBubbleIcon className="size-4 text-[#008dd5] shrink-0" />}
+                        {row.phone && !row.texting && bulkSelectMode && (
+                          <ChatBubbleOffIcon className="size-4 text-[#d64545] shrink-0" />
+                        )}
                         {row.phone}
                       </span>
                     </td>
